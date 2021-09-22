@@ -17,10 +17,10 @@ interface IERC20 {
 }
 
 
-contract ERC20Basic is IERC20 {
+contract PraxisToken is IERC20 {
 
-    string public constant name = "ERC20Basic";
-    string public constant symbol = "ERC";
+    string public constant name = "PraxisToken";
+    string public constant symbol = "PRX";
     uint8 public constant decimals = 18;  
 
     mapping(address => uint256) balances;
@@ -44,8 +44,8 @@ contract ERC20Basic is IERC20 {
 
     function transfer(address receiver, uint256 numTokens) public override returns (bool) {
         require(numTokens <= balances[msg.sender]);
-        balances[msg.sender] = balances[msg.sender].sub(numTokens);
-        balances[receiver] = balances[receiver].add(numTokens);
+        balances[msg.sender] = balances[msg.sender] - numTokens;
+        balances[receiver] = balances[receiver] + numTokens;
         emit Transfer(msg.sender, receiver, numTokens);
         return true;
     }
@@ -64,11 +64,13 @@ contract ERC20Basic is IERC20 {
         require(numTokens <= balances[owner]);    
         require(numTokens <= allowed[owner][msg.sender]);
     
-        balances[owner] = balances[owner].sub(numTokens);
-        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(numTokens);
-        balances[buyer] = balances[buyer].add(numTokens);
+        balances[owner] = balances[owner] - numTokens;
+        allowed[owner][msg.sender] = allowed[owner][msg.sender] - numTokens;
+        balances[buyer] = balances[buyer] + (numTokens);
         emit Transfer(owner, buyer, numTokens);
         return true;
     }
+
+    
 }
 
