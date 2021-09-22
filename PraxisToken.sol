@@ -29,9 +29,6 @@ contract ERC20Basic is IERC20 {
     
     uint256 totalSupply_;
 
-    using SafeMath for uint256;
-
-
    constructor(uint256 total) {  
         totalSupply_ = total;
         balances[msg.sender] = totalSupply_;
@@ -75,15 +72,3 @@ contract ERC20Basic is IERC20 {
     }
 }
 
-library SafeMath { 
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-      assert(b <= a);
-      return a - b;
-    }
-    
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-      uint256 c = a + b;
-      assert(c >= a);
-      return c;
-    }
-}
