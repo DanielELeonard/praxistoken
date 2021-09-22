@@ -1,4 +1,5 @@
-pragma solidity ^0.6.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 interface IERC20 {
 
@@ -22,11 +23,6 @@ contract ERC20Basic is IERC20 {
     string public constant symbol = "ERC";
     uint8 public constant decimals = 18;  
 
-
-    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
-    event Transfer(address indexed from, address indexed to, uint tokens);
-
-
     mapping(address => uint256) balances;
 
     mapping(address => mapping (address => uint256)) allowed;
@@ -36,13 +32,13 @@ contract ERC20Basic is IERC20 {
     using SafeMath for uint256;
 
 
-   constructor(uint256 total) public {  
-	totalSupply_ = total;
-	balances[msg.sender] = totalSupply_;
+   constructor(uint256 total) {  
+        totalSupply_ = total;
+        balances[msg.sender] = totalSupply_;
     }  
 
     function totalSupply() public override view returns (uint256) {
-	return totalSupply_;
+	    return totalSupply_;
     }
     
     function balanceOf(address tokenOwner) public override view returns (uint256) {
